@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Platform, Text, View } from 'react-native';
+import { Image, StyleSheet, Platform, Text, View, StatusBar, ActivityIndicator, Button, Alert } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -6,30 +6,37 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
 export default function HomeScreen() {
+  const handlepress = () => {
+    console.log('you pressed the button');
+    Alert.alert(
+      "important alert",
+      "importatn alert sub heading",
+      [
+        {text: 'Cancel', onPress: () => console.log('cancel button pressed')},
+        {text: 'OK', onPress: () => console.log('OK button was pressed')}
+      ]
+    )
+  }
+
   return (
-    <View >
-      <Text style={{color:'white', textAlign:'center'}}>hello this is our first text</Text>
+    <View style={styles.container}>
+      <Text style={{color:'#000', textAlign:'center'}}>hellow react nativve</Text>
+      <Text style={{color:'#000', textAlign:'center'}}>Hello muneeb </Text>
       <HelloWave />
-      <ThemedText/>
+      <ActivityIndicator size='large' style={{backgroundColor:"#808080", }} />
+      <Button title='click here' color='#f0f0f0' onPress={handlepress} />
+      <StatusBar>
+      </StatusBar>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  container: {
+    flex: 1,
+    gap:5,
+    backgroundColor: '#fff',
+    alignItems:'center',
+    justifyContent: 'space-around'
   },
 });
