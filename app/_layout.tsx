@@ -1,37 +1,40 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import { Alert, Button, StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+import { HelloWave } from '@/components/HelloWave'
+import { Slot } from 'expo-router'
+import { Stack } from 'expo-router'
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+const RootLayout = () => {
+  /* const handlePress = () => {
+    Alert.alert(
+      'Trivia questions',
+      'Are you a male?',
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
+      [
+        {text: 'Yes', onPress: () => console.log('you are a male')},
+        {text: 'No', onPress: () => console.log('you are Female')},
+      ]
+    )
+  } */
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
-  );
+    <>
+    {/* <Slot /> */}
+    <Stack>
+      <Stack.Screen name='index' options={{headerShown:false}} />
+    </Stack>
+    </>
+  )
 }
+
+export default RootLayout
+
+/* const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    flex: 1,
+    gap: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
+}) */
