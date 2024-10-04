@@ -4,7 +4,7 @@ import React from 'react'
 const Home = () => {
   return (
     <View>
-      <Text>this is the home page located in the tabs folder</Text>
+      <Text>This is home page</Text>
     </View>
   )
 }
