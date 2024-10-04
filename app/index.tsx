@@ -52,7 +52,6 @@ export default function HomeScreen() {
       </Link>
       <ActivityIndicator size="large" style={{ backgroundColor: "#808080" }} />
       <Button title="click here" color="#f0f0f0" onPress={handlepress} />
-      <StatusBar></StatusBar>
     </View>
   );
 }
