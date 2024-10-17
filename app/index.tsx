@@ -43,15 +43,12 @@ export default function HomeScreen() {
   
   return (
     <View style={styles.container}>
-      <Text>
-        hellow react nativve
+      <Text style= {styles.homeText}>
+        IMAGIA
       </Text>
-      <Text style={{ color: "#000", textAlign: "center" }}>Hello muneeb </Text>
       <Link href="./home" style={{ color: "blue" }}>
         Go to Home page
       </Link>
-      <ActivityIndicator size="large" style={{ backgroundColor: "#808080" }} />
-      <Button title="click here" color="#f0f0f0" onPress={handlepress} />
     </View>
   );
 }
@@ -62,5 +59,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  homeText: {
+    fontSize: 48,
+    backgroundColor: "orange",
+    color: 'white',
+    padding: 10,
+    textAlign: 'center',
+    borderRadius: 10,
+    marginBottom: 8
   }
 })

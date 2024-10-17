@@ -1,7 +1,8 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { Tabs } from 'expo-router'
-import { icons } from '../../constants'
+import { Tabs } from 'expo-router';
+import React from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
+
+import { icons } from '../../constants';
 
 const TabsLayout = () => {
   const TabIcons = ({ icon, color, name, focused}: {icon: any, color:string, name: string, focused: boolean}) => {
@@ -28,20 +29,20 @@ const TabsLayout = () => {
         }
       }}
       >
-        <Tabs.Screen
-          name="home"
-          options={{
-            title: "Home",
-            headerShown: false,
-            tabBarIcon: ({ color, focused }) => (
-              <TabIcons
-                icon={icons.home}
-                name="Home"
-                color={color}
-                focused={focused}
-              />
-            ),
-          }}
+        <Tabs.Screen 
+        name='home'
+        options={{
+          title: "Home",
+          headerShown: false,
+          tabBarIcon: ({ color, focused}) => (
+            <TabIcons 
+            icon={icons.home}
+            name='Home'
+            color= {color}
+            focused= {focused}
+            />
+          )
+        }}
         />
         <Tabs.Screen
           name="bookmark"
