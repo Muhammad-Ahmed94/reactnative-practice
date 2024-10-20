@@ -24,3 +24,6 @@ const styles = StyleSheet.create({
 
   }
 })
+
+
+//ajejfe
