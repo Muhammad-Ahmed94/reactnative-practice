@@ -31,17 +31,17 @@ export default function HomeScreen() {
   if(!fontsLoaded && !error) return null;
   
   return (
-    <SafeAreaView style={styles.safeAreaViewStyle}>
-      <ScrollView contentContainerStyle={{height: "100%"}}>
-
-      </ScrollView>
+    <SafeAreaView >
+        <View>
+          <Text>Hey there</Text>
+        </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  safeAreaViewStyle : {
-    height: "100%",
-    backgroundColor: "#ffa001",
+  mainStyle: {
+    backgroundColor: '#ffa001',
+    height: 100,
   },
 });
