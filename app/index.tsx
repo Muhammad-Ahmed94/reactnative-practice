@@ -1,9 +1,10 @@
 import { Link, SplashScreen } from 'expo-router';
 import { ActivityIndicator, Alert, Button, StatusBar, StyleSheet, Text, View } from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
 import { useFonts } from 'expo-font';
 import { useEffect } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView } from 'react-native-gesture-handler';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -20,18 +21,6 @@ export default function HomeScreen() {
     "Poppins-Thin": require("../assets/fonts/Poppins-Thin.ttf"),
   });
 
-  const handlepress = () => {
-    console.log('you pressed the button');
-    Alert.alert(
-      "important alert",
-      "importatn alert sub heading",
-      [
-        {text: 'Cancel', onPress: () => console.log('cancel button pressed')},
-        {text: 'OK', onPress: () => console.log('OK button was pressed')}
-      ]
-    )
-  }
-
   useEffect(() => {
     if(error) throw error
     if(fontsLoaded) SplashScreen.hideAsync();
@@ -42,32 +31,17 @@ export default function HomeScreen() {
   if(!fontsLoaded && !error) return null;
   
   return (
-    <View style={styles.container}>
-      <Text style= {styles.homeText}>
-        IMAGIA
-      </Text>
-      <Link href="./home" style={{ color: "blue" }}>
-        Go to Home page
-      </Link>
-    </View>
+    <SafeAreaView style={styles.safeAreaViewStyle}>
+      <ScrollView contentContainerStyle={{height: "100%"}}>
+
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  safeAreaViewStyle : {
+    height: "100%",
+    backgroundColor: "#ffa001",
   },
-  homeText: {
-    fontSize: 48,
-    backgroundColor: "orange",
-    color: 'white',
-    padding: 10,
-    textAlign: 'center',
-    borderRadius: 10,
-    marginBottom: 8
-  }
-  
-})
+});
