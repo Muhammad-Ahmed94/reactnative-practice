@@ -1,6 +1,5 @@
 import { Alert, Button, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { HelloWave } from '@/components/HelloWave'
 import { Slot } from 'expo-router'
 import { Stack } from 'expo-router'
 
@@ -24,6 +23,3 @@ const styles = StyleSheet.create({
 
   }
 })
-
-
-//ajejfe
