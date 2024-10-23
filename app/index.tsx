@@ -4,7 +4,7 @@ import { ActivityIndicator, Alert, Button, StatusBar, StyleSheet, Text, View } f
 import { useFonts } from 'expo-font';
 import { useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ScrollView } from 'react-native-gesture-handler';
+import colors from '../constants/colors';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -33,7 +33,7 @@ export default function HomeScreen() {
   return (
     <SafeAreaView >
         <View>
-          <Text>Hey there</Text>
+          <Text style= {styles.mainStyle}>Hey there</Text>
         </View>
     </SafeAreaView>
   );
@@ -41,9 +41,8 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   mainStyle: {
-    backgroundColor: '#ffa001',
+    backgroundColor: `${colors.secondary}`,
     height: 100,
+    color: `${colors.tertiary}`
   },
 });
-
-//aejhfijeo
