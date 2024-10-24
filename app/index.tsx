@@ -1,12 +1,18 @@
-import { Link, SplashScreen } from 'expo-router';
-import { ActivityIndicator, Alert, Button, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { Link, SplashScreen } from "expo-router";
+import {
+  ActivityIndicator,
+  Alert,
+  Button,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
-import { useFonts } from 'expo-font';
-import { useEffect } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import colors from '../constants/colors';
-
-SplashScreen.preventAutoHideAsync();
+import { useFonts } from "expo-font";
+import { useEffect } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import colors from "../constants/colors";
 
 export default function HomeScreen() {
   const [fontsLoaded, error] = useFonts({
@@ -22,18 +28,34 @@ export default function HomeScreen() {
   });
 
   useEffect(() => {
-    if(error) throw error
-    if(fontsLoaded) SplashScreen.hideAsync();
-    if(!fontsLoaded) return 
+    // Prevent SplashScreen from hiding until fonts are loaded
+    SplashScreen.preventAutoHideAsync();
 
+    if (error) {
+      Alert.alert("Error loading fonts");
+      return;
+    }
+
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
   }, [fontsLoaded, error]);
 
-  if(!fontsLoaded && !error) return null;
-  
+  if (!fontsLoaded) {
+    // Return a loading indicator until fonts are ready
+    return (
+      <SafeAreaView style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color={colors.primary} />
+      </SafeAreaView>
+    );
+  }
+
   return (
-    <SafeAreaView >
-        <View>
-          <Text style= {styles.mainStyle}>Hey there</Text>
+    <SafeAreaView style={styles.mainStyle}>
+        <View style={styles.viewStyle}>
+          <Text>
+            Welcome to Home Screen
+          </Text>
         </View>
     </SafeAreaView>
   );
@@ -41,8 +63,20 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   mainStyle: {
-    backgroundColor: `${colors.secondary}`,
-    height: 100,
-    color: `${colors.tertiary}`
+    backgroundColor: colors.primary,
+    height: "100%", // Use flex: 1 for full height
+  },
+  
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  viewStyle: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 2,
   },
 });
