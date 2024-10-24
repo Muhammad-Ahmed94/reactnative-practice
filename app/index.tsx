@@ -1,18 +1,15 @@
-import { Link, SplashScreen } from "expo-router";
+import { useFonts } from 'expo-font';
+import { Link, SplashScreen } from 'expo-router';
+import { useEffect } from 'react';
 import {
-  ActivityIndicator,
-  Alert,
-  Button,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+    ActivityIndicator, Alert, Button, Image, ScrollView, StatusBar, StyleSheet, Text, View
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { useFonts } from "expo-font";
-import { useEffect } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import colors from "../constants/colors";
+import { images } from '@/constants';
+
+import colors from '../constants/colors';
+import CustomButton from '@/components/CustomButton';
 
 export default function HomeScreen() {
   const [fontsLoaded, error] = useFonts({
@@ -52,11 +49,29 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.mainStyle}>
+      <ScrollView contentContainerStyle={{ height: "100%" }}>
         <View style={styles.viewStyle}>
-          <Text>
-            Welcome to Home Screen
-          </Text>
+          <Image
+            source={images.logo}
+            resizeMode="contain"
+            style={styles.logo}
+          />
+          <Image
+            source={images.cards}
+            resizeMode="contain"
+            style={styles.cards}
+          />
+          <View style={styles.textViewStyle}>
+            <Text style={styles.mainText}>
+              Discover endless possibilities with{" "}
+              <Text style={{ color: "orange" }}>Aora</Text>
+            </Text>
+          </View>
+          <Text style={{textAlign: 'center', color: 'white', fontSize: 18, marginTop: 20 }}>Emabrk on a journey into limitless possibilities. Here creativity meets innovation.</Text>
+
+          <CustomButton />
         </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -64,9 +79,9 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   mainStyle: {
     backgroundColor: colors.primary,
-    height: "100%", // Use flex: 1 for full height
+    flex: 1, // Use flex: 1 for full height
   },
-  
+
   loadingContainer: {
     flex: 1,
     justifyContent: "center",
@@ -78,5 +93,27 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 2,
+  },
+
+  logo: {
+    width: "30%",
+    height: "10%",
+  },
+
+  cards: {
+    height: "40%",
+    width: "100%",
+  },
+
+  textViewStyle: {
+    position: "relative",
+    marginTop: 20,
+  },
+
+  mainText: {
+    fontSize: 25,
+    color: `${colors.white}`,
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
