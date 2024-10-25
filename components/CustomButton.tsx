@@ -1,7 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import colors from '@/constants/colors'
-import { isLoading } from 'expo-font';
 
 interface customButtonProps {
   title: string;
