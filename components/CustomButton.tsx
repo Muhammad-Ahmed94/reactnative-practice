@@ -1,13 +1,19 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import colors from '@/constants/colors'
-import { coolDownAsync } from 'expo-web-browser'
+import { isLoading } from 'expo-font';
 
-const CustomButton = () => {
+interface customButtonProps {
+  title: string;
+  handlePress: () => void;
+  isLoading?: boolean;
+}
+
+const CustomButton: React.FC<customButtonProps> = ({ title, handlePress, isLoading }) => {
   return (
     <View style= {styles.buttonViewStyle}>
-      <TouchableOpacity style={styles.customButtonStyle}>
-        <Text style={styles.buttonTextStyle}>CustomButton</Text>
+      <TouchableOpacity onPress={handlePress} disabled={isLoading} style={styles.customButtonStyle}>
+        <Text style={styles.buttonTextStyle}>{title}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -18,7 +24,7 @@ export default CustomButton
 const styles = StyleSheet.create({
   buttonViewStyle: {
     height: "10%",
-    width: "50%",
+    width: "60%",
     justifyContent: "center",
     alignItems: "center",
     marginTop: 20,
@@ -26,9 +32,6 @@ const styles = StyleSheet.create({
 
   customButtonStyle: {
     backgroundColor: "orange",
-    paddingVertical: 2,
-    paddingHorizontal: 5,
-    color: "black",
     borderRadius: 10,
     justifyContent: "center",
     height: "70%",
@@ -38,6 +41,6 @@ const styles = StyleSheet.create({
   buttonTextStyle: {
     textAlign: "center",
     color: `${colors.white}`,
-    fontSize: 25,
+    fontSize: 20,
   },
 });

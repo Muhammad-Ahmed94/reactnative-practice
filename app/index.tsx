@@ -69,7 +69,7 @@ export default function HomeScreen() {
           </View>
           <Text style={{textAlign: 'center', color: 'white', fontSize: 18, marginTop: 20 }}>Emabrk on a journey into limitless possibilities. Here creativity meets innovation.</Text>
 
-          <CustomButton />
+          <CustomButton title= 'Continue with email' handlePress= {() => {console.log('button pressed');}} />
         </View>
       </ScrollView>
     </SafeAreaView>
