@@ -39,7 +39,7 @@ export default function HomeScreen() {
   }, [fontsLoaded, error]);
 
   if (!fontsLoaded) {
-    // Return a loading indicator until fonts are ready
+    // Return a loading indicator until fonts aren't ready
     return (
       <SafeAreaView style={styles.loadingContainer}>
         <ActivityIndicator size="large" color={colors.primary} />
@@ -69,7 +69,7 @@ export default function HomeScreen() {
           </View>
           <Text style={{textAlign: 'center', color: 'white', fontSize: 18, marginTop: 20 }}>Emabrk on a journey into limitless possibilities. Here creativity meets innovation.</Text>
 
-          <CustomButton title= 'Continue with email' handlePress= {() => {console.log('button pressed');}} />
+          <CustomButton title= 'Continue with email' handlePress= {() => {}} />
         </View>
       </ScrollView>
     </SafeAreaView>
