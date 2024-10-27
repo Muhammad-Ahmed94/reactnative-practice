@@ -51,24 +51,28 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.mainStyle}>
       <ScrollView contentContainerStyle={{ height: "100%" }}>
         <View style={styles.viewStyle}>
+          {/* Image of aora logo */}
           <Image
             source={images.logo}
             resizeMode="contain"
             style={styles.logo}
           />
+          {/* Image of landing screen cards */}
           <Image
             source={images.cards}
             resizeMode="contain"
             style={styles.cards}
           />
           <View style={styles.textViewStyle}>
+            {/* Landing screen texts */}
             <Text style={styles.mainText}>
               Discover endless possibilities with{" "}
               <Text style={{ color: "orange" }}>Aora</Text>
             </Text>
           </View>
+          {/* Landing screen subtext */}
           <Text style={{textAlign: 'center', color: 'white', fontSize: 18, marginTop: 20 }}>Emabrk on a journey into limitless possibilities. Here creativity meets innovation.</Text>
-
+          {/* Landing screen button */}
           <CustomButton title= 'Continue with email' handlePress= {() => {}} />
         </View>
       </ScrollView>
