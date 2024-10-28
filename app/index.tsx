@@ -1,5 +1,5 @@
 import { useFonts } from 'expo-font';
-import { Link, SplashScreen } from 'expo-router';
+import { SplashScreen } from 'expo-router';
 import { useEffect } from 'react';
 import {
     ActivityIndicator, Alert, Button, Image, ScrollView, StatusBar, StyleSheet, Text, View
@@ -73,7 +73,7 @@ export default function HomeScreen() {
           {/* Landing screen subtext */}
           <Text style={{textAlign: 'center', color: 'white', fontSize: 18, marginTop: 20 }}>Emabrk on a journey into limitless possibilities. Here creativity meets innovation.</Text>
           {/* Landing screen button */}
-          <CustomButton title= 'Continue with email' handlePress= {() => {}} />
+          <CustomButton title= 'Continue with email' handlePress={google}/>
         </View>
       </ScrollView>
     </SafeAreaView>
