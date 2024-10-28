@@ -10,6 +10,7 @@ import { images } from '@/constants';
 
 import colors from '../constants/colors';
 import CustomButton from '@/components/CustomButton';
+import { googleSignIn } from './auth/firebaseAuth';
 
 export default function HomeScreen() {
   const [fontsLoaded, error] = useFonts({
@@ -73,7 +74,7 @@ export default function HomeScreen() {
           {/* Landing screen subtext */}
           <Text style={{textAlign: 'center', color: 'white', fontSize: 18, marginTop: 20 }}>Emabrk on a journey into limitless possibilities. Here creativity meets innovation.</Text>
           {/* Landing screen button */}
-          <CustomButton title= 'Continue with email' handlePress={google}/>
+          <CustomButton title= 'Continue with email' handlePress={googleSignIn}/>
         </View>
       </ScrollView>
     </SafeAreaView>

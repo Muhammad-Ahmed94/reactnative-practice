@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { auth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { auth, getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 // Your firebase config here
 const firebaseConfig = {
@@ -15,7 +15,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const log = getAuth(app)
 const googleProvider = new GoogleAuthProvider();
 
-export { app, auth, googleProvider };
+export { app, log, googleProvider };
