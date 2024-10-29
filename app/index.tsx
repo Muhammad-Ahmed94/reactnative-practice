@@ -1,5 +1,5 @@
 import { useFonts } from 'expo-font';
-import { SplashScreen } from 'expo-router';
+import { router, SplashScreen } from 'expo-router';
 import { useEffect } from 'react';
 import {
     ActivityIndicator, Alert, Button, Image, ScrollView, StyleSheet, Text, View
@@ -66,14 +66,14 @@ export default function HomeScreen() {
           <View style={styles.textViewStyle}>
             {/* Landing screen texts */}
             <Text style={styles.mainText}>
-              Discover endless possibilities with{" "}
+              Discover endless Possibilities with{" "}
               <Text style={{ color: "orange" }}>Aora</Text>
             </Text>
           </View>
           {/* Landing screen subtext */}
           <Text style={{textAlign: 'center', color: 'white', fontSize: 18, marginTop: 20 }}>Emabrk on a journey into limitless possibilities. Here creativity meets innovation.</Text>
           {/* Landing screen button */}
-          <CustomButton title= 'Continue with email' handlePress={() => {}}/>
+          <CustomButton title= 'Continue with email' handlePress={() => router.push('/sign-in')}/>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -83,7 +83,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   mainStyle: {
     backgroundColor: colors.primary,
-    flex: 1, // Use flex: 1 for full height
+    height: "100%", // Or flex 1 for full height
   },
 
   loadingContainer: {
