@@ -15,6 +15,7 @@ const SignIn = () => {
           <Text style={styles.text}>Log In To Aora</Text>
         </View>
 
+        {/* Add states to keep track of input values */}
         <View>
           <FormFeild title='email' />
         </View>
