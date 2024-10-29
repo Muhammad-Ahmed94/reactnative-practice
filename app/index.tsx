@@ -2,7 +2,7 @@ import { useFonts } from 'expo-font';
 import { SplashScreen } from 'expo-router';
 import { useEffect } from 'react';
 import {
-    ActivityIndicator, Alert, Button, Image, ScrollView, StatusBar, StyleSheet, Text, View
+    ActivityIndicator, Alert, Button, Image, ScrollView, StyleSheet, Text, View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -10,7 +10,6 @@ import { images } from '@/constants';
 
 import colors from '../constants/colors';
 import CustomButton from '@/components/CustomButton';
-import { googleSignIn } from './auth/firebaseAuth';
 
 export default function HomeScreen() {
   const [fontsLoaded, error] = useFonts({
@@ -74,7 +73,7 @@ export default function HomeScreen() {
           {/* Landing screen subtext */}
           <Text style={{textAlign: 'center', color: 'white', fontSize: 18, marginTop: 20 }}>Emabrk on a journey into limitless possibilities. Here creativity meets innovation.</Text>
           {/* Landing screen button */}
-          <CustomButton title= 'Continue with email' handlePress={googleSignIn}/>
+          <CustomButton title= 'Continue with email' handlePress={() => {}}/>
         </View>
       </ScrollView>
     </SafeAreaView>
