@@ -4,12 +4,16 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import colors from '@/constants/colors'
 import { images } from '@/constants'
 import FormFeild from '@/components/FormFeild'
+import CustomButton from '@/components/CustomButton'
 
 const SignIn = () => {
   const [ form, setForm ] = useState({
     email: '',
     password: '',
-  })
+  });
+  const [ isSubmitting, setIsSubmitting ] = useState(false);
+
+  const submit = () => {console.log('singinig you in')}
 
   return (
     <>
@@ -38,7 +42,9 @@ const SignIn = () => {
                 placeholder="Password"
                 keyBoardType="password"
               />
+              
             </View>
+              <CustomButton title='Sign In' handlePress={submit} isLoading={isSubmitting} />
           </View>
         </ScrollView>
       </SafeAreaView>
