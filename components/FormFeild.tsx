@@ -4,13 +4,16 @@ import colors from '@/constants/colors';
 
 //* Add proper props attributes to read input values
 interface formFieldProps {
-    title: string;
+  title: string;
+  value: string;
+  handleTextChange: (text: string) => void;
+  keyBoardType?: string;
 }
 
-const FormFeild:React.FC<formFieldProps> = ({ title }) => {
+const FormFeild:React.FC<formFieldProps> = ({ title, value, handleTextChange, keyBoardType }) => {
   return (
-    <View style={styles.viewStyle}>
-        <Text style={{color: colors.white}}>{title}</Text>
+    <View>
+      <Text style={styles.textStyle}>{title}</Text>
     </View>
   )
 }
@@ -20,8 +23,12 @@ export default FormFeild
 const styles = StyleSheet.create({
   viewStyle: {
     height: 20,
-    width: '100%',
+    width: "100%",
     borderWidth: 1,
-    borderColor: 'orange'
+    borderColor: "orange",
+  },
+
+  textStyle: {
+    color: colors.white,
   }
 });

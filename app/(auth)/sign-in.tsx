@@ -1,11 +1,16 @@
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import colors from '@/constants/colors'
 import { images } from '@/constants'
 import FormFeild from '@/components/FormFeild'
 
 const SignIn = () => {
+  const [ form, setForm ] = useState({
+    email: '',
+    password: '',
+  })
+
   return (
     <>
     <SafeAreaView style={styles.mainStyle}>
@@ -17,8 +22,10 @@ const SignIn = () => {
 
         {/* Add states to keep track of input values */}
         <View>
-          <FormFeild title='email' />
+          <FormFeild title='Email' value={form.email} handleTextChange={(e) => setForm({ ...form, email: e})} keyBoardType= 'email-address' />
+          <FormFeild title='Password' value={form.password} handleTextChange={(e) => setForm({ ...form, password: e})} keyBoardType= 'password' />
         </View>
+
       </ScrollView>
     </SafeAreaView>
     </>
