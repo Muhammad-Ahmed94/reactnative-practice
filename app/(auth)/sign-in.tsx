@@ -13,23 +13,37 @@ const SignIn = () => {
 
   return (
     <>
-    <SafeAreaView style={styles.mainStyle}>
-      <ScrollView contentContainerStyle={{height: '100%'}}>
-        <View style={styles.viewStyle}>
-          <Image source={images.logo} resizeMode='contain' style={styles.logo} />
-          <Text style={styles.text}>Log In To Aora</Text>
-        </View>
+      <SafeAreaView style={styles.mainStyle}>
+        <ScrollView contentContainerStyle={{ height: "100%" }}>
+          <View style={styles.viewStyle}>
+            <Image
+              source={images.logo}
+              resizeMode="contain"
+              style={styles.logo}
+            />
+            <Text style={styles.text}>Log In To Aora</Text>
 
-        {/* Add states to keep track of input values */}
-        <View>
-          <FormFeild title='Email' value={form.email} handleTextChange={(e) => setForm({ ...form, email: e})} keyBoardType= 'email-address' />
-          <FormFeild title='Password' value={form.password} handleTextChange={(e) => setForm({ ...form, password: e})} keyBoardType= 'password' />
-        </View>
-
-      </ScrollView>
-    </SafeAreaView>
+            <View>
+              <FormFeild
+                title="Email"
+                value={form.email}
+                handleTextChange={(e) => setForm({ ...form, email: e })}
+                placeholder="E-mail"
+                keyBoardType="email-address"
+              />
+              <FormFeild
+                title="Password"
+                value={form.password}
+                handleTextChange={(e) => setForm({ ...form, password: e })}
+                placeholder="Password"
+                keyBoardType="password"
+              />
+            </View>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
     </>
-  )
+  );
 }
 
 export default SignIn
@@ -53,7 +67,7 @@ const styles = StyleSheet.create({
 
   text: {
     color: colors.white,
-    marginTop: 10,
+    marginVertical: 10,
     fontSize: 25,
     fontWeight: 'bold',
   }
