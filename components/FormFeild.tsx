@@ -1,6 +1,7 @@
-import { StyleSheet, Text, TextInput, View } from 'react-native'
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import colors from '@/constants/colors';
+import { icons } from '@/constants';
 
 //* Add proper props attributes to read input values
 interface formFieldProps {
@@ -18,8 +19,13 @@ const FormFeild:React.FC<formFieldProps> = ({ title, value, handleTextChange, pl
     <View style= {styles.mainViewStyle}>
       <Text style={styles.textStyle}>{title}</Text>
 
-      <View style={styles.inputViewStyle}>
-        <TextInput value={value} onChangeText={handleTextChange} placeholder={placeholder} placeholderTextColor='gray' secureTextEntry={title === 'Password'} style={styles.textInput} />
+      <View style={[styles.inputViewStyle, title === "Password" && styles.passwordInputViewStyle]}>
+        <TextInput value={value} onChangeText={handleTextChange} placeholder={placeholder} placeholderTextColor='gray' secureTextEntry={title === 'Password' && showPassword} style={styles.textInput} />
+        {title === "Password" ? (
+          <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+            <Image source={!showPassword ? icons.eye : icons.eyeHide} resizeMode='contain' style={{height: 30, width: 30}} />
+          </TouchableOpacity>
+        ) : null}
       </View>
     </View>
   )
@@ -40,19 +46,26 @@ const styles = StyleSheet.create({
   },
 
   inputViewStyle: {
-    width: '100%',
+    width: "100%",
     height: 75,
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderRadius: 10,
     marginBottom: 10,
-    padding: 10,
-    backgroundColor: 'black',
-    justifyContent: 'center',
+    padding: 15,
+    backgroundColor: "black",
+    justifyContent: "center",
+  },
+
+  passwordInputViewStyle: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 
   textInput: {
     color: colors.white,
-    fontSize: 20
-  }
+    fontSize: 20,
+  },
 });
