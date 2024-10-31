@@ -76,10 +76,11 @@ const styles = StyleSheet.create({
     width: "100%",
     flex: 1,
     padding: 20,
+    justifyContent: 'center',
   },
 
   logo: {
-    width: "30%",
+    width: "40%",
     height: "10%",
   },
 
