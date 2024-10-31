@@ -5,6 +5,7 @@ import colors from '@/constants/colors'
 import { images } from '@/constants'
 import FormFeild from '@/components/FormFeild'
 import CustomButton from '@/components/CustomButton'
+import { Link } from 'expo-router'
 
 const SignIn = () => {
   const [ form, setForm ] = useState({
@@ -43,6 +44,7 @@ const SignIn = () => {
                 keyBoardType="password"
               />
             </View>
+
             <View style={styles.signInButtonViewStyle}>
               <CustomButton
                 title="Sign In"
@@ -50,6 +52,10 @@ const SignIn = () => {
                 isLoading={isSubmitting}
                 otherStyles={{height: 60}}
               />
+            </View>
+
+            <View style={styles.signUpViewStyle}>
+              <Text style={{color:colors.white}}>Don't have an account?{' '}<Link href='/sign-up' style={{color:'orange'}}>Sign up here</Link></Text>
             </View>
           </View>
         </ScrollView>
@@ -89,4 +95,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 100,
   },
+
+  signUpViewStyle: {
+    alignItems: 'center',
+    paddingTop: 10,
+  }
 });
