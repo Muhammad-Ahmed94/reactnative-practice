@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleProp, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native'
 import React from 'react'
 import colors from '@/constants/colors'
 
@@ -6,12 +6,13 @@ interface customButtonProps {
   title: string;
   handlePress: () => void;
   isLoading?: boolean;
+  otherStyles?: StyleProp<ViewStyle>
 }
 
-const CustomButton: React.FC<customButtonProps> = ({ title, handlePress, isLoading }) => {
+const CustomButton: React.FC<customButtonProps> = ({ title, handlePress, isLoading, otherStyles }) => {
   return (
     <View style= {styles.buttonViewStyle}>
-      <TouchableOpacity onPress={handlePress} disabled={isLoading} style={styles.customButtonStyle}>
+      <TouchableOpacity onPress={handlePress} disabled={isLoading} style={[styles.customButtonStyle, otherStyles]}>
         <Text style={styles.buttonTextStyle}>{title}</Text>
       </TouchableOpacity>
     </View>

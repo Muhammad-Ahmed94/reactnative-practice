@@ -42,9 +42,15 @@ const SignIn = () => {
                 placeholder="Password"
                 keyBoardType="password"
               />
-              
             </View>
-              <CustomButton title='Sign In' handlePress={submit} isLoading={isSubmitting} />
+            <View style={styles.signInButtonViewStyle}>
+              <CustomButton
+                title="Sign In"
+                handlePress={submit}
+                isLoading={isSubmitting}
+                otherStyles={{height: 60}}
+              />
+            </View>
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -75,6 +81,12 @@ const styles = StyleSheet.create({
     color: colors.white,
     marginVertical: 10,
     fontSize: 25,
-    fontWeight: 'bold',
-  }
+    fontWeight: "bold",
+  },
+
+  signInButtonViewStyle: {
+    justifyContent: "center",
+    alignItems: "center",
+    height: 100,
+  },
 });
