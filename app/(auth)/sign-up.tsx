@@ -1,4 +1,4 @@
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import React, { useState } from 'react';
 import { Alert, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -26,7 +26,8 @@ const SignUp = () => {
 
     try {
       const result = await createUser(form.email, form.password, form.username);
-      return result;
+      // return result;
+      router.replace('/home'); //* After sign up, auto redirect to home screen.
     } catch (error) {
       console.log(error);
       Alert.alert("Error", (error as any).message);

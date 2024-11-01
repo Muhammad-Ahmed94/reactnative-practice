@@ -18,9 +18,9 @@ client
   .setProject(appwriteConfig.projectId) // Your project ID
   .setPlatform(appwriteConfig.platform); // Your application ID or bundle ID.
 
-const account = new Account(client);
-const avatars = new Avatars(client);
-const databases = new Databases(client);
+const account = new Account(client); // Accound instance
+const avatars = new Avatars(client); // Avatars instance for userprofiles
+const databases = new Databases(client); // AppWrite instance for storage
 
 export const createUser = async (
   email: string,
@@ -28,20 +28,20 @@ export const createUser = async (
   username: string
 ) => {
   try {
-    const newAccount = await account.create(
+    const newAccount = await account.create( //* Account.create for new user account document id (ID.unique), email, username and password
       ID.unique(),
       email,
       password,
       username
     );
 
-    if (!newAccount) throw Error;
+    if (!newAccount) throw Error; // if new user acc not created throw back err
 
-    const avatarsUrl = avatars.getInitials(username);
+    const avatarsUrl = avatars.getInitials(username); // Users profile with their username initials
 
-    await signIn(email, password);
+    await signIn(email, password); //* For signing in new created user
 
-    const newUser = await databases.createDocument(
+    const newUser = await databases.createDocument( //* Storing new user account to appwrite database
       appwriteConfig.databseId,
       appwriteConfig.usersCollectionId,
       ID.unique(),
@@ -53,7 +53,7 @@ export const createUser = async (
   }
 };
 
-export async function signIn(email: string, password: string) {
+export async function signIn(email: string, password: string) { //* Sign in function
   try {
     const session = await account.createEmailPasswordSession(email, password);
     return session;
