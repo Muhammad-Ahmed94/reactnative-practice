@@ -1,9 +1,4 @@
-import { Account, Avatars, Client, Databases, ID } from "react-native-appwrite";
-/* interface createUserProps {
-  email: string;
-  password: string;
-  username: string;
-} */
+import { Account, Avatars, Client, Databases, ID } from 'react-native-appwrite';
 
 export const appwriteConfig = {
   endpoint: "https://cloud.appwrite.io/v1",
@@ -23,31 +18,44 @@ client
   .setProject(appwriteConfig.projectId) // Your project ID
   .setPlatform(appwriteConfig.platform); // Your application ID or bundle ID.
 
-  const account = new Account(client);
-  const avatars = new Avatars(client);
-  const databases = new Databases(client);
+const account = new Account(client);
+const avatars = new Avatars(client);
+const databases = new Databases(client);
 
-export const createUser = async (email:string, password:string, username:string) => {
+export const createUser = async (
+  email: string,
+  password: string,
+  username: string
+) => {
   try {
-    const newAccount = await account.create(ID.unique(), email, password, username);
+    const newAccount = await account.create(
+      ID.unique(),
+      email,
+      password,
+      username
+    );
 
-    if(!newAccount) throw Error;
+    if (!newAccount) throw Error;
 
     const avatarsUrl = avatars.getInitials(username);
-    
-    await signIn(email, password)
 
-    const newUser = await databases.createDocument(appwriteConfig.databseId, appwriteConfig.usersCollectionId, ID.unique(), {accountId: newAccount.$id, email, username, avatarsUrl});
+    await signIn(email, password);
+
+    const newUser = await databases.createDocument(
+      appwriteConfig.databseId,
+      appwriteConfig.usersCollectionId,
+      ID.unique(),
+      { accountId: newAccount.$id, email, username, avatarsUrl }
+    );
     return newUser;
-
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 export async function signIn(email: string, password: string) {
   try {
-    const session = await account.createEmailPasswordSession(email, password)
+    const session = await account.createEmailPasswordSession(email, password);
     return session;
   } catch (error) {
     console.log(error);
