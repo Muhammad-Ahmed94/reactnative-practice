@@ -1,12 +1,3 @@
 This file is onyl used to make comments.
 
 this is the second comment
-
-this is the third commit
-
-this is the fourth commit 
-
-this is the 5th commit 
-
-this is the 6th commit in the commit.txt file
-
