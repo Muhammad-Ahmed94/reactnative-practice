@@ -1,17 +1,21 @@
 import { useFonts } from 'expo-font';
-import { router, SplashScreen } from 'expo-router';
+import { Redirect, router, SplashScreen } from 'expo-router';
 import { useEffect } from 'react';
 import {
     ActivityIndicator, Alert, Button, Image, ScrollView, StyleSheet, Text, View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import CustomButton from '@/components/CustomButton';
 import { images } from '@/constants';
 
 import colors from '../constants/colors';
-import CustomButton from '@/components/CustomButton';
+import { useGlobalContext } from '../context/GlobalProvider';
 
 export default function HomeScreen() {
+  // const { isLoading, isLoggedIn } = useGlobalContext();
+  // if (!isLoading && isLoggedIn) return <Redirect href="/home" />;
+
   const [fontsLoaded, error] = useFonts({
     "Poppins-Black": require("../assets/fonts/Poppins-Black.ttf"),
     "Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),
@@ -71,9 +75,22 @@ export default function HomeScreen() {
             </Text>
           </View>
           {/* Landing screen subtext */}
-          <Text style={{textAlign: 'center', color: 'white', fontSize: 18, marginTop: 20 }}>Emabrk on a journey into limitless possibilities. Here creativity meets innovation.</Text>
+          <Text
+            style={{
+              textAlign: "center",
+              color: "white",
+              fontSize: 18,
+              marginTop: 20,
+            }}
+          >
+            Emabrk on a journey into limitless possibilities. Here creativity
+            meets innovation.
+          </Text>
           {/* Landing screen button */}
-          <CustomButton title= 'Continue with email' handlePress={() => router.push('/sign-in')}/>
+          <CustomButton
+            title="Continue with email"
+            handlePress={() => router.push("/sign-in")}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
