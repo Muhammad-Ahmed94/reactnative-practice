@@ -4,6 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import colors from '@/constants/colors'
 import { images } from '@/constants'
 import SearchInput from '@/components/SearchInput'
+import TrendingSection from '@/components/TrendingSection'
+import EmptyTrending from '@/components/EmptyTrending'
 
 const Home = () => {
   return (
@@ -23,8 +25,16 @@ const Home = () => {
               </View>
               
               <SearchInput placeholder='search video you want' />
+
+              <View>
+                <Text style={[styles.textWhite, styles.fontSize20 ]}>Latest Videos</Text>
+                <TrendingSection posts={[{id: 1}, {id: 2}, {id: 3}]} />
+              </View>
             </View>
           </View>
+        )}
+        ListEmptyComponent={() => (
+          <EmptyTrending />
         )}
       />
     </SafeAreaView>
@@ -41,6 +51,10 @@ const styles = StyleSheet.create({
 
   textWhite: {
     color: colors.white,
+  },
+
+  fontSize20: {
+    fontSize: 20
   },
 
   homeContainer: {
@@ -63,15 +77,4 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 
-  /* homeSearchInput: {
-    height: 28,
-    width: '100%',
-    padding: 15, 
-    borderRadius: 8,
-    borderColor: colors.white,
-    marginHorizontal: 20,
-    color: 'gray',
-    fontSize: 20
-    
-  } */
 });
