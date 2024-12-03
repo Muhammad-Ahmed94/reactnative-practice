@@ -1,0 +1,4 @@
+Safe area view kei barey mein prha hai mene aj
+FLATLIST kei barey mein prha hai, jab bhi hmein list koi render krwana hota hia on the screen we use FLATLIST
+its some main options are data, keyExtractor, renderItem.
+
