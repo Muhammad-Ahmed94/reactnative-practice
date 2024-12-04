@@ -3,6 +3,7 @@ import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
 import { icons } from '../../constants';
+import colors from '@/constants/colors';
 
 const TabsLayout = () => {
   const TabIcons = ({ icon, color, name, focused}: {icon: any, color:string, name: string, focused: boolean}) => {
@@ -22,10 +23,14 @@ const TabsLayout = () => {
         tabBarInactiveTintColor: '#cdcde0',
         tabBarActiveTintColor: '#ffa001',
         tabBarStyle: {
-          backgroundColor: '#161622',
-          borderTopWidth: 1,
-          borderTopColor: '#232533',
-          height: 84
+          backgroundColor: colors.primary,
+          height: 100,
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          elevation: 0,
+          shadowOpacity: 0,
+          borderTopWidth: 0,
         }
       }}
       >
@@ -99,14 +104,15 @@ export default TabsLayout
 
 const styles = StyleSheet.create({
   navigationStyle: {
-    width: 15,
-    height: 15,
+    width: 20,
+    height: 20,
   },
 
   container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     gap: 2,
-  }
-})
+    width: 60,
+    textAlign: 'center'
+  },
+});

@@ -9,9 +9,9 @@ import EmptyTrending from '@/components/EmptyTrending'
 
 const Home = () => {
   return (
-    <SafeAreaView style={{ backgroundColor: colors.primary, height: "100%" }}>
+    <SafeAreaView style={{ backgroundColor: colors.primary, flex: 1}}>
       <FlatList
-        data={[]}
+        data={[{id: 'muneeb'}]}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <Text style={{ fontSize: 40, color: colors.white }}>{item.id}</Text>

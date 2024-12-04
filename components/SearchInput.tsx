@@ -50,12 +50,11 @@ const styles = StyleSheet.create({
 
   searchInput: {
     width: "100%",
-    height: 55,
+    height: 60,
     borderWidth: 1,
     borderColor: "gray",
     borderRadius: 10,
-    marginBottom: 10,
-    padding: 15,
+    padding: 8,
     backgroundColor: "black",
     flexDirection: 'row',
     justifyContent: 'space-between',
