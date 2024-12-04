@@ -41,9 +41,5 @@
         "projectId": "57164474-6d31-4295-b5ed-d60e618cbfe4"
       }
     }
-  },
-  "compilerOptions": {
-    "jsx": "react"
-    
   }
 }

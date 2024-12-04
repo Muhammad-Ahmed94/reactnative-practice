@@ -9,9 +9,9 @@ import EmptyTrending from '@/components/EmptyTrending'
 
 const Home = () => {
   return (
-    <SafeAreaView style={{ backgroundColor: colors.primary }}>
+    <SafeAreaView style={{ backgroundColor: colors.primary, height: "100%" }}>
       <FlatList
-        data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
+        data={[]}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <Text style={{ fontSize: 40, color: colors.white }}>{item.id}</Text>
@@ -20,21 +20,32 @@ const Home = () => {
           <View style={styles.homeContainer}>
             <View style={styles.homeInnerContainer}>
               <View style={styles.homeTitleContainer}>
-                <Text style={[styles.textWhite, styles.homeTitle]}>Welcome Muneeb!</Text>
-                <Image source={images.logoSmall} resizeMode='contain' style={{height: 30, width: 30}} />
+                <Text style={[styles.textWhite, styles.homeTitle]}>
+                  Welcome Muneeb!
+                </Text>
+                <Image
+                  source={images.logoSmall}
+                  resizeMode="contain"
+                  style={{ height: 30, width: 30 }}
+                />
               </View>
-              
-              <SearchInput placeholder='search video you want' />
+
+              <SearchInput placeholder="search video you want" />
 
               <View>
-                <Text style={[styles.textWhite, styles.fontSize20 ]}>Latest Videos</Text>
-                <TrendingSection posts={[{id: 1}, {id: 2}, {id: 3}]} />
+                <Text style={[styles.textWhite, styles.fontSize20]}>
+                  Latest Videos
+                </Text>
+                <TrendingSection posts={[{ id: 1 }, { id: 2 }, { id: 3 }]} />
               </View>
             </View>
           </View>
         )}
         ListEmptyComponent={() => (
-          <EmptyTrending />
+          <EmptyTrending
+            title="No Videos Found"
+            subtitle="Be the first to create video"
+          />
         )}
       />
     </SafeAreaView>
