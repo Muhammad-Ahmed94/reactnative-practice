@@ -1,4 +1,5 @@
 Safe area view kei barey mein prha hai mene aj
 FLATLIST kei barey mein prha hai, jab bhi hmein list koi render krwana hota hia on the screen we use FLATLIST
-its some main options are data, keyExtractor, renderItem.
-
+its some main options are data, keyExtractor, renderItem, horizontal(lay the list in horizontal view).
+listHeaderComponent contains all the list items.
+emptyListComponent appears when the data field of the flatlist is not populated or is empty. it can be only used to show some error or not loading message
