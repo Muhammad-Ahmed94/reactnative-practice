@@ -23,7 +23,7 @@ const TabsLayout = () => {
         tabBarInactiveTintColor: '#cdcde0',
         tabBarActiveTintColor: '#ffa001',
         tabBarStyle: {
-          backgroundColor: colors.primary,
+          backgroundColor: colors.navBarColorPrimary,
           height: 100,
           flexDirection: 'row',
           alignItems: 'center',

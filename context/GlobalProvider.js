@@ -15,6 +15,7 @@ const GlobalContextProvider = ({ children }) => {
             if(res){
                 setUser(res)
                 setIsLoggedIn(true)
+                console.log(`User: ${user} and is logged in: ${isLoggedIn}`);
             } else {
                 setUser(null)
                 setIsLoggedIn(false)

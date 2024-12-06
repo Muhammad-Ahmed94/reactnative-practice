@@ -13,8 +13,10 @@ import colors from '../constants/colors';
 import { useGlobalContext } from '../context/GlobalProvider';
 
 export default function HomeScreen() {
-  const { isLoading, isLoggedIn } = useGlobalContext()
-  if (!isLoading && isLoggedIn) {return <Redirect href="/home" />
+  const { isLoading, isLoggedIn, user } = useGlobalContext()
+  if (!isLoading && isLoggedIn) {
+    console.log(user);
+    return <Redirect href="/home" />
 }
   const [fontsLoaded, error] = useFonts({
     "Poppins-Black": require("../assets/fonts/Poppins-Black.ttf"),
