@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { getCurrentUser } from '../lib/appwrite';
 
 const GlobalContext = createContext();
-export const useGlobalContext = useContext(GlobalContext);
+export const useGlobalContext = () => useContext(GlobalContext);
 
 const GlobalContextProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -13,11 +13,11 @@ const GlobalContextProvider = ({ children }) => {
         getCurrentUser()
          .then((res) => {
             if(res){
-                setIsLoggedIn(true)
                 setUser(res)
+                setIsLoggedIn(true)
             } else {
-                setIsLoggedIn(false)
                 setUser(null)
+                setIsLoggedIn(false)
             }
          })
          .catch(error => console.log(error))
@@ -32,3 +32,4 @@ const GlobalContextProvider = ({ children }) => {
 }
 
 export default GlobalContextProvider;
+
