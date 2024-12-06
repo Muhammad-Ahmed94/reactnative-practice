@@ -1,54 +1,43 @@
-import { Alert, FlatList, Image, RefreshControl, StyleSheet, Text, TextInput, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import colors from '@/constants/colors'
-import { images } from '@/constants'
-import SearchInput from '@/components/SearchInput'
-import TrendingSection from '@/components/TrendingSection'
-import EmptyTrending from '@/components/EmptyTrending'
-import { getPostsDocuments } from '@/lib/appwrite'
+import {
+  FlatList,
+  Image,
+  RefreshControl,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
+import React, { useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import colors from "@/constants/colors";
+import { images } from "@/constants";
+import SearchInput from "@/components/SearchInput";
+import TrendingSection from "@/components/TrendingSection";
+import EmptyTrending from "@/components/EmptyTrending";
+import { getPostsDocuments } from "@/lib/appwrite";
+import useAppWrite from "@/lib/useAppWrite";
 
 const Home = () => {
-  const [ refreshing, setRefreshing ] = useState(false);
-  const [ data, setData ] = useState([]);
-  const [ loading, setIsLoading ] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true)
+  const { data: posts, reloadRefetch } = useAppWrite(getPostsDocuments);
 
-      try {
-        const response = await getPostsDocuments();
-        setData(response)
-      } catch (error) {
-        Alert.alert('Error', error.message)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    fetchData()
-  }, [])
-
-  console.log(data);
-
-  //* Pull to refresh function
-  const onRefreshing = () => {
-    setRefreshing(true)
-    // -> implement refreshing logic once i have real data to implement
-    console.log('refresh working');
-    setRefreshing(false)
-  }
+  console.log(posts);
+  //* Pull-down refresh function
+  const onRefreshing = async () => {
+    setRefreshing(true);
+    reloadRefetch();
+    setRefreshing(false);
+  };
 
   return (
-    <SafeAreaView style={{ backgroundColor: colors.primary, flex: 1}}>
+    <SafeAreaView style={{ backgroundColor: colors.primary, flex: 1 }}>
       <FlatList
-        data={[{id: 1}, {id: 2}, {id: 3}]}
-        keyExtractor={(item) => item.id.toString()}
+        data={posts}
+        keyExtractor={(item) => item}
         renderItem={({ item }) => (
-          <Text style={{ fontSize: 40, color: colors.white }}>{item.id}</Text>
+          <Text style={{ fontSize: 40, color: colors.white }}>{item.title}</Text>
         )}
-
         ListHeaderComponent={() => (
           <View style={styles.homeContainer}>
             <View style={styles.homeInnerContainer}>
@@ -74,21 +63,21 @@ const Home = () => {
             </View>
           </View>
         )}
-
         ListEmptyComponent={() => (
           <EmptyTrending
             title="No Videos Found"
             subtitle="Be the first to create video"
           />
         )}
-
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefreshing} />}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefreshing} />
+        }
       />
     </SafeAreaView>
   );
-}
+};
 
-export default Home
+export default Home;
 
 const styles = StyleSheet.create({
   centerAlign: {
@@ -101,7 +90,7 @@ const styles = StyleSheet.create({
   },
 
   fontSize20: {
-    fontSize: 20
+    fontSize: 20,
   },
 
   homeContainer: {
@@ -123,5 +112,4 @@ const styles = StyleSheet.create({
   homeTitle: {
     fontSize: 20,
   },
-
 });
