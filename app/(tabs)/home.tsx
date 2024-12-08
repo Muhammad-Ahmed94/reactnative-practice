@@ -4,7 +4,6 @@ import {
   RefreshControl,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from "react-native";
 import React, { useState } from "react";
@@ -15,14 +14,14 @@ import SearchInput from "@/components/SearchInput";
 import TrendingSection from "@/components/TrendingSection";
 import EmptyTrending from "@/components/EmptyTrending";
 import { getPostsDocuments } from "@/lib/appwrite";
-import useAppWrite from "@/lib/useAppWrite";
+import useAppWrite from '@/lib/useAppwrite';
+import VideoCard from "@/components/VideoCard";
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
 
   const { data: posts, reloadRefetch } = useAppWrite(getPostsDocuments);
 
-  console.log(posts);
   //* Pull-down refresh function
   const onRefreshing = async () => {
     setRefreshing(true);
@@ -34,9 +33,9 @@ const Home = () => {
     <SafeAreaView style={{ backgroundColor: colors.primary, flex: 1 }}>
       <FlatList
         data={posts}
-        keyExtractor={(item) => item}
+        keyExtractor={(item) => item.$id}
         renderItem={({ item }) => (
-          <Text style={{ fontSize: 40, color: colors.white }}>{item.title}</Text>
+          <VideoCard video={item} />
         )}
         ListHeaderComponent={() => (
           <View style={styles.homeContainer}>
