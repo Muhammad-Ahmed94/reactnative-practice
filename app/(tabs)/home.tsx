@@ -13,7 +13,7 @@ import { images } from "@/constants";
 import SearchInput from "@/components/SearchInput";
 import TrendingSection from "@/components/TrendingSection";
 import EmptyTrending from "@/components/EmptyTrending";
-import { getPostsDocuments } from "@/lib/appwrite";
+import { getPostsDocuments, getTrendyPosts } from "@/lib/appwrite";
 import useAppWrite from '@/lib/useAppwrite';
 import VideoCard from "@/components/VideoCard";
 
@@ -21,6 +21,7 @@ const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
 
   const { data: posts, reloadRefetch } = useAppWrite(getPostsDocuments);
+  const { data: trendyPosts } = useAppWrite(getTrendyPosts);
 
   //* Pull-down refresh function
   const onRefreshing = async () => {
@@ -34,9 +35,7 @@ const Home = () => {
       <FlatList
         data={posts}
         keyExtractor={(item) => item}
-        renderItem={({ item }) => (
-          <VideoCard video={item} />
-        )}
+        renderItem={({ item }) => <VideoCard video={item} />}
         ListHeaderComponent={() => (
           <View style={styles.homeContainer}>
             <View style={styles.homeInnerContainer}>
@@ -57,7 +56,7 @@ const Home = () => {
                 <Text style={[styles.textWhite, styles.fontSize20]}>
                   Latest Videos
                 </Text>
-                <TrendingSection posts={[{ id: 1 }, { id: 2 }, { id: 3 }]} />
+                <TrendingSection posts={trendyPosts ?? []} />
               </View>
             </View>
           </View>
@@ -90,6 +89,7 @@ const styles = StyleSheet.create({
 
   fontSize20: {
     fontSize: 20,
+    marginBottom: 10
   },
 
   homeContainer: {
