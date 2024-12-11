@@ -33,7 +33,7 @@ const Home = () => {
     <SafeAreaView style={{ backgroundColor: colors.primary, flex: 1 }}>
       <FlatList
         data={posts}
-        keyExtractor={(item) => item.$id}
+        keyExtractor={(item) => item}
         renderItem={({ item }) => (
           <VideoCard video={item} />
         )}
