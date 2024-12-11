@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import colors from '@/constants/colors'
 import { icons } from '@/constants';
 
@@ -12,6 +12,8 @@ interface CardProps {
 }
 
 const VideoCard: React.FC<CardProps> = ({ video: { title, thumbnail, video, }}) => {
+  const [ play, setPlay ] = useState(false);
+
   return (
     <View style={styleSheet.mainContainer}>
       <View>
@@ -35,11 +37,19 @@ const VideoCard: React.FC<CardProps> = ({ video: { title, thumbnail, video, }}) 
             />
           </TouchableOpacity>
         </View>
-        <Image
-          source={{ uri: thumbnail }}
-          resizeMode="contain"
-          style={styleSheet.videoThumbnail}
-        />
+
+        {play ? (
+          <Text style={{ color: "white", fontSize: 15 }}>playing</Text>
+        ) : (
+          <TouchableOpacity activeOpacity={0.5} onPress={() => setPlay(!false)}>
+            <Image
+              source={{ uri: thumbnail }}
+              resizeMode="contain"
+              style={styleSheet.videoThumbnail}
+            />
+            <Image source={icons.play} resizeMode='contain' style={styleSheet.videoPlayButton} /* style={{height: 40, width: 40, position: 'absolute', alignSelf:'center', top: '50%', transform: [{translateY: '-50%'}]}} */ />
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
@@ -62,18 +72,29 @@ const styleSheet = StyleSheet.create({
   },
 
   mainContainer: {
-    borderWidth: 1,
-    borderColor: "red",
+    /* borderWidth: 1,
+    borderColor: "red", */
     padding: 15,
     margin: 12,
+    marginBottom: 18,
     height: 200,
     display: "flex",
     flexDirection: "column",
   },
 
   videoThumbnail: {
-    height: 50,
-    width: 80,
+    height: '95%',
+    width: '100%',
+    borderRadius: 12,
+  },
+
+  videoPlayButton: {
+    height: 40, 
+    width: 40,
+    position: 'absolute',
+    alignSelf: 'center',
+    top: '50%',
+    transform: [{translateY: '-50%'}]
   },
 
   containerHeader: {
