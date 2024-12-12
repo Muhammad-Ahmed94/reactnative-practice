@@ -17,7 +17,7 @@ const TrendyPosts = ({ activeItem, item }) => {
   const [ play, setPlay ] = useState(false);
 
   return(
-    <Animatable.View  animation={activeItem === item.$id ? zoomIn : zoomOut} duration={500}>
+    <Animatable.View  /* animation={activeItem === item.$id ? zoomIn : zoomOut} */ duration={500}>
       {play ? (
         <Text style={{color:'white', fontSize: 12}}>Elon Mushk</Text>
       ) : (

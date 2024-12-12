@@ -5,3 +5,6 @@ listHeaderComponent contains all the list items.
 emptyListComponent appears when the data field of the flatlist is not populated or is empty. it can be only used to show some error or not loading message
 //
 refreshControl(): allows you to implement pull-to-refresh functionality to fetch updated or latest data like on instgram and otehr social media apps.
+//
+Animatable.view, animation, duration, ImageBackground(source)
+Animatable is a react-native animation library used to provide seemless and smooth animations and transitions.
