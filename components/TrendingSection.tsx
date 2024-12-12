@@ -1,7 +1,8 @@
-import { View, Text, FlatList, TouchableOpacity, ImageBackground, StyleSheet } from "react-native";
+import { View, Text, FlatList, TouchableOpacity, ImageBackground, StyleSheet, Image } from "react-native";
 import React, { useState } from "react";
 import EmptyTrending from "./EmptyTrending";
 import * as Animatable from 'react-native-animatable';
+import { icons } from "@/constants";
 
 const zoomIn = {
   0: {scale: 0.8},
@@ -15,14 +16,15 @@ const zoomOut = {
 
 const TrendyPosts = ({ activeItem, item }) => {
   const [ play, setPlay ] = useState(false);
-
+  // console.log(`${activeItem.$id} item id ${item.$id}`);
   return(
-    <Animatable.View  /* animation={activeItem === item.$id ? zoomIn : zoomOut} */ duration={500}>
+    <Animatable.View  animation={activeItem.$id === item.$id ? zoomOut : zoomIn} duration={500}>
       {play ? (
         <Text style={{color:'white', fontSize: 12}}>Elon Mushk</Text>
       ) : (
-        <TouchableOpacity activeOpacity={0.8} onPress={() => setPlay(!false)}>
+        <TouchableOpacity activeOpacity={0.8} style={[styleSheet.imageSlider, styleSheet.alignCenter]} onPress={() => setPlay(!false) }>
           <ImageBackground source={{uri: item.thumbnail}} resizeMode="cover" style={styleSheet.sliderImages} />
+          <Image source={icons.play} resizeMode="contain" style={styleSheet.videoPlayButton} />
         </TouchableOpacity>
       )}
     </Animatable.View>
@@ -50,12 +52,27 @@ const TrendingSection = ({ posts }: { posts: { id: number }[] }) => {
 export default TrendingSection;
 
 const styleSheet = StyleSheet.create({
-  imageSlider: {},
+  alignCenter: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  imageSlider: {
+    position: "relative",
+  },
 
   sliderImages: {
     height: 250,
-    width: 175,
+    width: 180,
     borderRadius: 20,
-    marginRight: 10,
+    marginRight: 15,
+    overflow: "hidden",
+    boxShadow: "50",
+  },
+
+  videoPlayButton: {
+    height: 40,
+    width: 40,
+    position: "absolute",
   },
 });

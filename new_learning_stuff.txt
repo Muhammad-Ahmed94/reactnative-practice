@@ -8,3 +8,4 @@ refreshControl(): allows you to implement pull-to-refresh functionality to fetch
 //
 Animatable.view, animation, duration, ImageBackground(source)
 Animatable is a react-native animation library used to provide seemless and smooth animations and transitions.
+onViewableItemsChange, viewabilityConfig
