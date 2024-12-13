@@ -5,20 +5,20 @@ import * as Animatable from 'react-native-animatable';
 import { icons } from "@/constants";
 
 const zoomIn = {
-  0: {scale: 0.8},
+  0: {scale: 0.85},
   1: {scale: 1}
 }
 
 const zoomOut = {
   0: {scale: 1},
-  1: {scale: 0.8}
+  1: {scale: 0.85}
 }
 
 const TrendyPosts = ({ activeItem, item }) => {
   const [ play, setPlay ] = useState(false);
-  // console.log(`${activeItem.$id} item id ${item.$id}`);
+
   return(
-    <Animatable.View  animation={activeItem.$id === item.$id ? zoomOut : zoomIn} duration={500}>
+    <Animatable.View  animation={activeItem === item.$id ? zoomIn : zoomOut} duration={500}>
       {play ? (
         <Text style={{color:'white', fontSize: 12}}>Elon Mushk</Text>
       ) : (
@@ -34,6 +34,11 @@ const TrendyPosts = ({ activeItem, item }) => {
 const TrendingSection = ({ posts }: { posts: { id: number }[] }) => {
   const [ activeItem , setActiveItem ] = useState(posts[0]);
 
+  const viewableItemsChange = ({ viewableItems }: {viewableItems: any}) => {
+    if(viewableItems.length > 0) {}
+    setActiveItem(viewableItems[0].key)
+  }
+
   return (
     <FlatList
       data={posts}
@@ -41,6 +46,9 @@ const TrendingSection = ({ posts }: { posts: { id: number }[] }) => {
       renderItem={({ item }) => (
         <TrendyPosts activeItem={activeItem} item={item} />
       )}
+      onViewableItemsChanged={viewableItemsChange}
+      viewabilityConfig={{itemVisiblePercentThreshold: 70}}
+      contentOffset={{ x: 100, y: 0 }}
       horizontal
       ListEmptyComponent={() => (
         <EmptyTrending title= 'No Videos Found' subtitle='Be the first to create video' />
@@ -64,8 +72,8 @@ const styleSheet = StyleSheet.create({
   sliderImages: {
     height: 250,
     width: 180,
-    borderRadius: 20,
-    marginRight: 15,
+    borderRadius: 10,
+    marginRight: 10,
     overflow: "hidden",
     boxShadow: "50",
   },

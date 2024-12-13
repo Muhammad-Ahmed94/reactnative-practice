@@ -8,4 +8,7 @@ refreshControl(): allows you to implement pull-to-refresh functionality to fetch
 //
 Animatable.view, animation, duration, ImageBackground(source)
 Animatable is a react-native animation library used to provide seemless and smooth animations and transitions.
-onViewableItemsChange, viewabilityConfig
+onViewableItemsChange, viewabilityConfig, contentOffset are all the properties of the flatlist component.
+onviewableitemschange is a function that triggers when something moves on the screen and is considered visible.
+viewabilityconfig and visiboleItemThreshold sets the defining criteria for the item to be considered visible. threshholdis is set to 70 means items is considered visible when it is 70% showing on screen.
+contentoffset and x:180 means the initial scroll position is 180 pixels next to zero.
