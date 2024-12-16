@@ -12,3 +12,4 @@ onViewableItemsChange, viewabilityConfig, contentOffset are all the properties o
 onviewableitemschange is a function that triggers when something moves on the screen and is considered visible.
 viewabilityconfig and visiboleItemThreshold sets the defining criteria for the item to be considered visible. threshholdis is set to 70 means items is considered visible when it is 70% showing on screen.
 contentoffset and x:180 means the initial scroll position is 180 pixels next to zero.
+Expo-Av allows you to play videos in your app.

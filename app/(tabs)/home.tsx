@@ -14,7 +14,7 @@ import SearchInput from "@/components/SearchInput";
 import TrendingSection from "@/components/TrendingSection";
 import EmptyTrending from "@/components/EmptyTrending";
 import { getPostsDocuments, getTrendyPosts } from "@/lib/appwrite";
-import useAppWrite from '@/lib/useAppwrite';
+import useAppWrite from "@/lib/useAppwrite";
 import VideoCard from "@/components/VideoCard";
 
 const Home = () => {
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
 
   fontSize20: {
     fontSize: 20,
-    marginBottom: 10
+    marginBottom: 10,
   },
 
   homeContainer: {

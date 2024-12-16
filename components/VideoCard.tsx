@@ -1,19 +1,21 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
-import colors from '@/constants/colors'
-import { icons } from '@/constants';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import colors from "@/constants/colors";
+import { icons } from "@/constants";
+import { ResizeMode, Video } from "expo-av";
 
 interface CardProps {
-    title: string;
-    thumbnail?:string
-    video?: string
-    username: string;
-    avatar?: string;
+  title: string;
+  thumbnail?: string;
+  video?: string;
+  username: string;
+  avatar?: string;
 }
 
-const VideoCard: React.FC<CardProps> = ({ video: { title, thumbnail, video, }}) => {
-  const [ play, setPlay ] = useState(false);
+const VideoCard: React.FC<CardProps> = ({ video: {title, thumbnail, video} }) => {
+  const [play, setPlay] = useState(false);
 
+  // console.log(`username is ${username} \n avatar is ${avatar}, also the title is: ${title}`);
   return (
     <View style={styleSheet.mainContainer}>
       <View>
@@ -39,7 +41,13 @@ const VideoCard: React.FC<CardProps> = ({ video: { title, thumbnail, video, }}) 
         </View>
 
         {play ? (
-          <Text style={{ color: "white", fontSize: 15 }}>playing</Text>
+          <Video 
+          style={styleSheet.videoStyles}
+          source={{ uri: video || '' }}
+          resizeMode={ResizeMode.CONTAIN}
+          useNativeControls
+          shouldPlay
+          />
         ) : (
           <TouchableOpacity activeOpacity={0.5} onPress={() => setPlay(!false)}>
             <Image
@@ -47,15 +55,21 @@ const VideoCard: React.FC<CardProps> = ({ video: { title, thumbnail, video, }}) 
               resizeMode="contain"
               style={styleSheet.videoThumbnail}
             />
-            <Image source={icons.play} resizeMode='contain' style={styleSheet.videoPlayButton} /* style={{height: 40, width: 40, position: 'absolute', alignSelf:'center', top: '50%', transform: [{translateY: '-50%'}]}} */ />
+            <Image
+              source={icons.play}
+              resizeMode="contain"
+              style={
+                styleSheet.videoPlayButton
+              } /* style={{height: 40, width: 40, position: 'absolute', alignSelf:'center', top: '50%', transform: [{translateY: '-50%'}]}} */
+            />
           </TouchableOpacity>
         )}
       </View>
     </View>
   );
-}
+};
 
-export default VideoCard
+export default VideoCard;
 
 const styleSheet = StyleSheet.create({
   alignCenter: {
@@ -83,18 +97,18 @@ const styleSheet = StyleSheet.create({
   },
 
   videoThumbnail: {
-    height: '95%',
-    width: '100%',
+    height: "95%",
+    width: "100%",
     borderRadius: 12,
   },
 
   videoPlayButton: {
-    height: 40, 
+    height: 40,
     width: 40,
-    position: 'absolute',
-    alignSelf: 'center',
-    top: '50%',
-    transform: [{translateY: '-50%'}]
+    position: "absolute",
+    alignSelf: "center",
+    top: "50%",
+    transform: [{ translateY: "-50%" }],
   },
 
   containerHeader: {
@@ -102,17 +116,12 @@ const styleSheet = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 4
+    marginBottom: 4,
   },
 
   subHeader: {
-    flexDirection:'row' 
+    flexDirection: "row",
   },
-
-  /* subHeaderText: {
-    color: colors.grayWhite,
-    fontSize: 20
-  }, */
 
   avatarStyle: {
     height: 30,
@@ -123,11 +132,17 @@ const styleSheet = StyleSheet.create({
 
   headerText: {
     color: colors.white,
-    fontSize: 21
+    fontSize: 21,
   },
 
   menuStyle: {
     height: 28,
     width: 28,
+  },
+
+  videoStyles: {
+    height: '100%',
+    width: '100%',
+    
   },
 });
