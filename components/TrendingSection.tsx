@@ -19,7 +19,16 @@ const zoomOut = {
   1: { scale: 0.85 },
 };
 
-const TrendyPosts = ({ activeItem, item }) => {
+interface TrendyPostProps {
+  activeItem: string | null;
+  item: {
+    $id: string;
+    video: string;
+    thumbnail: string;
+  };
+}
+
+const TrendyPosts: React.FC<TrendyPostProps> = ({ activeItem, item }) => {
   const [play, setPlay] = useState(false);
 
   return (
@@ -56,8 +65,8 @@ const TrendyPosts = ({ activeItem, item }) => {
   );
 };
 
-const TrendingSection = ({ posts }: { posts: { id: number }[] }) => {
-  const [activeItem, setActiveItem] = useState(posts[0]);
+const TrendingSection = ({ posts }: { posts: {$id: string; video: string; thumbnail:string} [] }) => {
+  const [activeItem, setActiveItem] = useState(posts.length > 0 ? posts[0].$id : null);
 
   const viewableItemsChange = ({ viewableItems }: { viewableItems: any }) => {
     if (viewableItems.length > 0) {

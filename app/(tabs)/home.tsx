@@ -35,7 +35,7 @@ const Home = () => {
       <FlatList
         data={posts}
         keyExtractor={(item) => item}
-        renderItem={({ item }) => <VideoCard video={item} />}
+        renderItem={({ item }) => <VideoCard video={{title: item.title, thumbnail: item.thumbnail, video:item.video}} />}
         ListHeaderComponent={() => (
           <View style={styles.homeContainer}>
             <View style={styles.homeInnerContainer}>

@@ -12,7 +12,7 @@ interface CardProps {
   avatar?: string;
 }
 
-const VideoCard: React.FC<CardProps> = ({ video: {title, thumbnail, video} }) => {
+const VideoCard: React.FC<{ video: {title: string; thumbnail?: string; video?:string}}> = ({ video/* : {title, thumbnail, video} */ }) => {
   const [play, setPlay] = useState(false);
 
   // console.log(`username is ${username} \n avatar is ${avatar}, also the title is: ${title}`);
@@ -27,7 +27,7 @@ const VideoCard: React.FC<CardProps> = ({ video: {title, thumbnail, video} }) =>
               style={styleSheet.avatarStyle}
             />
             <Text style={styleSheet.headerText} numberOfLines={1}>
-              {title}
+              {video.title}
             </Text>
             {/* <Text style={styleSheet.subHeaderText} numberOfLines={1}>{username}</Text> */}
           </View>
@@ -43,7 +43,7 @@ const VideoCard: React.FC<CardProps> = ({ video: {title, thumbnail, video} }) =>
         {play ? (
           <Video 
           style={styleSheet.videoStyles}
-          source={{ uri: video || '' }}
+          source={{ uri: video.video || '' }}
           resizeMode={ResizeMode.CONTAIN}
           useNativeControls
           shouldPlay
@@ -51,7 +51,7 @@ const VideoCard: React.FC<CardProps> = ({ video: {title, thumbnail, video} }) =>
         ) : (
           <TouchableOpacity activeOpacity={0.5} onPress={() => setPlay(!false)}>
             <Image
-              source={{ uri: thumbnail }}
+              source={{ uri: video.thumbnail }}
               resizeMode="contain"
               style={styleSheet.videoThumbnail}
             />
