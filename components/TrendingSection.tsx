@@ -38,10 +38,16 @@ const TrendyPosts: React.FC<TrendyPostProps> = ({ activeItem, item }) => {
     >
       {play ? (
         <Video
+          // style={styleSheet.videoStyles}
           source={{ uri: item.video }}
           resizeMode={ResizeMode.CONTAIN}
           useNativeControls
           shouldPlay
+          onPlaybackStatusUpdate={(status) => {
+            if (status.isLoaded && status.didJustFinish) {
+              setPlay(false);
+            }
+          }}
         />
       ) : (
         <TouchableOpacity
@@ -70,14 +76,14 @@ const TrendingSection = ({ posts }: { posts: {$id: string; video: string; thumbn
 
   const viewableItemsChange = ({ viewableItems }: { viewableItems: any }) => {
     if (viewableItems.length > 0) {
+      setActiveItem(viewableItems[0].key);
     }
-    setActiveItem(viewableItems[0].key);
   };
 
   return (
     <FlatList
       data={posts}
-      keyExtractor={(item) => item.$id}
+      keyExtractor={(item, index) => item.$id || index.toString()}
       renderItem={({ item }) => (
         <TrendyPosts activeItem={activeItem} item={item} />
       )}
@@ -120,5 +126,10 @@ const styleSheet = StyleSheet.create({
     height: 40,
     width: 40,
     position: "absolute",
+  },
+
+  videoStyles: {
+    height: "100%",
+    width: "100%",
   },
 });
