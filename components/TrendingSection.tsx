@@ -83,7 +83,7 @@ const TrendingSection = ({ posts }: { posts: {$id: string; video: string; thumbn
   return (
     <FlatList
       data={posts}
-      keyExtractor={(item, index) => item.$id || index.toString()}
+      keyExtractor={(item) => item.$id.toString()}
       renderItem={({ item }) => (
         <TrendyPosts activeItem={activeItem} item={item} />
       )}

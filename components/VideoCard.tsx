@@ -47,6 +47,11 @@ const VideoCard: React.FC<{ video: {title: string; thumbnail?: string; video?:st
           resizeMode={ResizeMode.CONTAIN}
           useNativeControls
           shouldPlay
+          onPlaybackStatusUpdate={(status) => {
+            if(status.isLoaded && status.didJustFinish) {
+              setPlay(false)
+            }
+          }}
           />
         ) : (
           <TouchableOpacity activeOpacity={0.5} onPress={() => setPlay(!false)}>
