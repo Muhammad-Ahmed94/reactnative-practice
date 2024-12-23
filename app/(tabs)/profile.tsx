@@ -95,16 +95,48 @@ const styles = StyleSheet.create({
 */
 
 
-import { View, Text, SafeAreaView } from 'react-native'
+import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
 import colors from '@/constants/colors';
+import { logUserOut } from '@/lib/appwrite';
+import { useGlobalContext } from '@/context/GlobalProvider';
+import { router } from 'expo-router';
 
 const profile = () => {
+  const { user, setUser, setIsLoggedIn } = useGlobalContext();
+
+  const logout = async () => {
+    await logUserOut()
+    setUser(null)
+    setIsLoggedIn(null)
+
+    router.replace('/sign-in');
+    console.log(`user is: ${user}`);
+  }
+
   return (
     <SafeAreaView style={{height: '100%', backgroundColor: colors.primary}}>
-      <Text style={{color: colors.white, fontSize: 25, textAlign: 'center'}}>User Profile</Text>
+      <Text style={styleSheet.textStyles}>User Profile</Text>
+      <TouchableOpacity onPress={logout}>
+        <Text style={[styleSheet.textStyles, styleSheet.logoutText]}>Log out</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
 
 export default profile
+
+const styleSheet = StyleSheet.create({
+  textStyles: {
+    color: colors.white,
+    fontSize: 25,
+    textAlign: 'center',
+  },
+  logoutText: {
+    color: 'red',
+    borderWidth: 2,
+    borderColor: 'red',
+    borderStyle: 'dotted',
+    marginTop: 50
+  }
+})
