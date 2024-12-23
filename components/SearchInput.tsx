@@ -1,8 +1,9 @@
-import React from 'react';
-import { Image, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { Alert, Image, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 
 import { icons } from '@/constants';
 import colors from '@/constants/colors';
+import { router, usePathname } from 'expo-router';
 
 //* Add proper props attributes to read input values
 interface searchInputProps {
@@ -16,17 +17,28 @@ const SearchInput: React.FC<searchInputProps> = ({
   handleTextChange,
   placeholder,
 }) => {
+  const pathname = usePathname();
+  const [ query, setQuery ] = useState('');
+
   return (
     <View style={styles.searchInputCotainer}>
       <View style={[styles.searchInput]}>
         <TextInput
-          value={value}
-          onChangeText={handleTextChange}
+          value={query}
+          onChangeText={(e) => setQuery(e)}
           placeholder={placeholder}
           placeholderTextColor="gray"
           style={styles.textInput}
         />
-        <TouchableOpacity>
+        <TouchableOpacity
+        onPress={() => {
+          if(!query) {
+            Alert.alert("Error", "Missing input values")
+          }
+          if(pathname.startsWith('/search')) router.setParams({query})
+            else router.push(`/search/${query}`)
+        }}
+        >
             <Image source={icons.search} resizeMode="contain" style={{height: 20, width: 20}} />
         </TouchableOpacity>
       </View>
