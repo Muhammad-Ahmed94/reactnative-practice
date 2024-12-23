@@ -8,6 +8,7 @@ import FormFeild from '@/components/FormFeild';
 import { images } from '@/constants';
 import colors from '@/constants/colors';
 import { createUser } from '@/lib/appwrite';
+import { useGlobalContext } from '@/context/GlobalProvider';
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -16,6 +17,7 @@ const SignUp = () => {
     username: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { setUser, setIsLoggedIn } = useGlobalContext()
 
   const submit = async () => {
     if (!form.email || !form.password || !form.username) {
@@ -26,7 +28,8 @@ const SignUp = () => {
 
     try {
       const result = await createUser(form.email, form.password, form.username);
-      // return result;
+      setUser(result)
+      setIsLoggedIn(true)
       router.replace('/home'); //* After sign up, auto redirect to home screen.
     } catch (error) {
       console.log(error);

@@ -105,6 +105,7 @@ import { router } from 'expo-router';
 const profile = () => {
   const { user, setUser, setIsLoggedIn } = useGlobalContext();
 
+  console.log(user);
   const logout = async () => {
     await logUserOut()
     setUser(null)
@@ -117,6 +118,7 @@ const profile = () => {
   return (
     <SafeAreaView style={{height: '100%', backgroundColor: colors.primary}}>
       <Text style={styleSheet.textStyles}>User Profile</Text>
+      <Text style={styleSheet.textStyles}>{user}</Text>
       <TouchableOpacity onPress={logout}>
         <Text style={[styleSheet.textStyles, styleSheet.logoutText]}>Log out</Text>
       </TouchableOpacity>
