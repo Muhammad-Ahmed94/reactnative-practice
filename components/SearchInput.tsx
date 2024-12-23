@@ -10,7 +10,7 @@ interface searchInputProps {
   value?: string;
   handleTextChange?: (text: string) => void;
   placeholder: string;
-  initialQuery: string;
+  initialQuery?: string;
 }
 
 const SearchInput: React.FC<searchInputProps> = ({
