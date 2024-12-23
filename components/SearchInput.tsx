@@ -10,15 +10,17 @@ interface searchInputProps {
   value?: string;
   handleTextChange?: (text: string) => void;
   placeholder: string;
+  initialQuery: string;
 }
 
 const SearchInput: React.FC<searchInputProps> = ({
   value,
   handleTextChange,
   placeholder,
+  initialQuery,
 }) => {
   const pathname = usePathname();
-  const [ query, setQuery ] = useState('');
+  const [query, setQuery] = useState(initialQuery || "");
 
   return (
     <View style={styles.searchInputCotainer}>
@@ -31,15 +33,19 @@ const SearchInput: React.FC<searchInputProps> = ({
           style={styles.textInput}
         />
         <TouchableOpacity
-        onPress={() => {
-          if(!query) {
-            Alert.alert("Error", "Missing input values")
-          }
-          if(pathname.startsWith('/search')) router.setParams({query})
-            else router.push(`/search/${query}`)
-        }}
+          onPress={() => {
+            if (!query) {
+              Alert.alert("Error", "Missing input values");
+            }
+            if (pathname.startsWith("/search")) router.setParams({ query });
+            else router.push(`/search/${query}`);
+          }}
         >
-            <Image source={icons.search} resizeMode="contain" style={{height: 20, width: 20}} />
+          <Image
+            source={icons.search}
+            resizeMode="contain"
+            style={{ height: 20, width: 20 }}
+          />
         </TouchableOpacity>
       </View>
     </View>
