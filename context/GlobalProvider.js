@@ -21,7 +21,7 @@ const GlobalContextProvider = ({ children }) => {
                 setIsLoggedIn(false)
             }
          })
-         .catch(error => console.log(error))
+         .catch(error => console.log("Error fetching current user", error.message))
          .finally(() => setIsLoading(false))
     }, [])
 

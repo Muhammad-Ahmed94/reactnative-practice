@@ -1,13 +1,19 @@
-import { ResizeMode, Video } from 'expo-av';
-import React, { useState } from 'react';
+import { ResizeMode, Video } from "expo-av";
+import React, { useState } from "react";
 import {
-    FlatList, Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View
-} from 'react-native';
-import * as Animatable from 'react-native-animatable';
+  FlatList,
+  Image,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import * as Animatable from "react-native-animatable";
 
-import { icons } from '@/constants';
+import { icons } from "@/constants";
 
-import EmptyTrending from './EmptyTrending';
+import EmptyTrending from "./EmptyTrending";
 
 const zoomIn = {
   0: { scale: 0.85 },
@@ -38,9 +44,9 @@ const TrendyPosts: React.FC<TrendyPostProps> = ({ activeItem, item }) => {
     >
       {play ? (
         <Video
-          // style={styleSheet.videoStyles}
+          style={styleSheet.videoStyles}
           source={{ uri: item.video }}
-          resizeMode={ResizeMode.CONTAIN}
+          resizeMode={ResizeMode.COVER}
           useNativeControls
           shouldPlay
           onPlaybackStatusUpdate={(status) => {
@@ -53,7 +59,7 @@ const TrendyPosts: React.FC<TrendyPostProps> = ({ activeItem, item }) => {
         <TouchableOpacity
           activeOpacity={0.8}
           style={[styleSheet.imageSlider, styleSheet.alignCenter]}
-          onPress={() => setPlay(!false)}
+          onPress={() => setPlay(true)}
         >
           <ImageBackground
             source={{ uri: item.thumbnail }}
@@ -71,8 +77,14 @@ const TrendyPosts: React.FC<TrendyPostProps> = ({ activeItem, item }) => {
   );
 };
 
-const TrendingSection = ({ posts }: { posts: {$id: string; video: string; thumbnail:string} [] }) => {
-  const [activeItem, setActiveItem] = useState(posts.length > 0 ? posts[0].$id : null);
+const TrendingSection = ({
+  posts,
+}: {
+  posts: { $id: string; video: string; thumbnail: string }[];
+}) => {
+  const [activeItem, setActiveItem] = useState(
+    posts.length > 0 ? posts[0].$id : null
+  );
 
   const viewableItemsChange = ({ viewableItems }: { viewableItems: any }) => {
     if (viewableItems.length > 0) {
@@ -129,7 +141,11 @@ const styleSheet = StyleSheet.create({
   },
 
   videoStyles: {
-    height: "100%",
-    width: "100%",
+    height: 250,
+    width: 180,
+    marginTop: 10,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
