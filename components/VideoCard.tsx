@@ -91,8 +91,6 @@ const styleSheet = StyleSheet.create({
   },
 
   mainContainer: {
-    /* borderWidth: 1,
-    borderColor: "red", */
     padding: 15,
     margin: 12,
     marginBottom: 18,
@@ -146,7 +144,7 @@ const styleSheet = StyleSheet.create({
   },
 
   videoStyles: {
-    height: '100%',
+    height: '95%',
     width: '100%',
   },
 });
