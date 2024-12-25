@@ -1,6 +1,6 @@
 import { Link, router } from 'expo-router';
 import React, { useState } from 'react';
-import { Alert, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Image, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import CustomButton from '@/components/CustomButton';
@@ -22,6 +22,7 @@ const SignUp = () => {
   const submit = async () => {
     if (!form.email || !form.password || !form.username) {
       Alert.alert("Error", "Please fill in all the fields!");
+      return;
     }
 
     setIsSubmitting(true);
@@ -42,57 +43,63 @@ const SignUp = () => {
   return (
     <>
       <SafeAreaView style={styles.mainStyle}>
-        <ScrollView contentContainerStyle={{ height: "100%" }}>
-          <View style={styles.viewStyle}>
-            <Image
-              source={images.logo}
-              resizeMode="contain"
-              style={styles.logo}
-            />
-            <Text style={styles.text}>Sign Up Here!</Text>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "android" ? "padding" : "height"}
+          >
+            <ScrollView contentContainerStyle={{ height: "100%" }}>
+              <View style={styles.viewStyle}>
+                <Image
+                  source={images.logo}
+                  resizeMode="contain"
+                  style={styles.logo}
+                />
+                <Text style={styles.text}>Sign Up Here!</Text>
 
-            <View>
-              <FormFeild
-                title="Username"
-                value={form.username}
-                handleTextChange={(e) => setForm({ ...form, username: e })}
-                placeholder="Your_Name"
-              />
-              <FormFeild
-                title="Email"
-                value={form.email}
-                handleTextChange={(e) => setForm({ ...form, email: e })}
-                placeholder="E-mail"
-                keyBoardType="email-address"
-              />
-              <FormFeild
-                title="Password"
-                value={form.password}
-                handleTextChange={(e) => setForm({ ...form, password: e })}
-                placeholder="Password"
-                keyBoardType="password"
-              />
-            </View>
+                <View>
+                  <FormFeild
+                    title="Username"
+                    value={form.username}
+                    handleTextChange={(e) => setForm({ ...form, username: e })}
+                    placeholder="Your_Name"
+                  />
+                  <FormFeild
+                    title="Email"
+                    value={form.email}
+                    handleTextChange={(e) => setForm({ ...form, email: e })}
+                    placeholder="E-mail"
+                    keyBoardType="email-address"
+                  />
+                  <FormFeild
+                    title="Password"
+                    value={form.password}
+                    handleTextChange={(e) => setForm({ ...form, password: e })}
+                    placeholder="Password"
+                    keyBoardType="password"
+                  />
+                </View>
 
-            <View style={styles.signInButtonViewStyle}>
-              <CustomButton
-                title="Sign Up to Aora"
-                handlePress={submit}
-                isLoading={isSubmitting}
-                otherStyles={{ height: 60 }}
-              />
-            </View>
+                <View style={styles.signInButtonViewStyle}>
+                  <CustomButton
+                    title="Sign Up to Aora"
+                    handlePress={submit}
+                    isLoading={isSubmitting}
+                    otherStyles={{ height: 60 }}
+                  />
+                </View>
 
-            <View style={styles.signUpViewStyle}>
-              <Text style={{ color: colors.white }}>
-                Already have an account?{" "}
-                <Link href="/sign-in" style={{ color: "orange" }}>
-                  Log in here
-                </Link>
-              </Text>
-            </View>
-          </View>
-        </ScrollView>
+                <View style={styles.signUpViewStyle}>
+                  <Text style={{ color: colors.white }}>
+                    Already have an account?{" "}
+                    <Link href="/sign-in" style={{ color: "orange" }}>
+                      Log in here
+                    </Link>
+                  </Text>
+                </View>
+              </View>
+            </ScrollView>
+          </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
       </SafeAreaView>
     </>
   );

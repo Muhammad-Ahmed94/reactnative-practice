@@ -1,4 +1,4 @@
-import { Alert, Image, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Alert, Image, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import colors from '@/constants/colors'
@@ -21,6 +21,7 @@ const SignIn = () => {
   const submit = async () => {
     if (!form.email || !form.password) {
       Alert.alert("Error", "Please fill in all the fields!");
+      return;
     }
 
     setIsSubmitting(true);
@@ -43,46 +44,57 @@ const SignIn = () => {
   return (
     <>
       <SafeAreaView style={styles.mainStyle}>
-        <ScrollView contentContainerStyle={{ height: "100%" }}>
-          <View style={styles.viewStyle}>
-            <Image
-              source={images.logo}
-              resizeMode="contain"
-              style={styles.logo}
-            />
-            <Text style={styles.text}>Log In To Aora</Text>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "android" ? "padding" : "height"}
+          >
+            <ScrollView contentContainerStyle={{ height: "100%" }}>
+              <View style={styles.viewStyle}>
+                <Image
+                  source={images.logo}
+                  resizeMode="contain"
+                  style={styles.logo}
+                />
+                <Text style={styles.text}>Log In To Aora</Text>
 
-            <View>
-              <FormFeild
-                title="Email"
-                value={form.email}
-                handleTextChange={(e) => setForm({ ...form, email: e })}
-                placeholder="E-mail"
-                keyBoardType="email-address"
-              />
-              <FormFeild
-                title="Password"
-                value={form.password}
-                handleTextChange={(e) => setForm({ ...form, password: e })}
-                placeholder="Password"
-                keyBoardType="password"
-              />
-            </View>
+                <View>
+                  <FormFeild
+                    title="Email"
+                    value={form.email}
+                    handleTextChange={(e) => setForm({ ...form, email: e })}
+                    placeholder="E-mail"
+                    keyBoardType="email-address"
+                  />
+                  <FormFeild
+                    title="Password"
+                    value={form.password}
+                    handleTextChange={(e) => setForm({ ...form, password: e })}
+                    placeholder="Password"
+                    keyBoardType="password"
+                  />
+                </View>
 
-            <View style={styles.signInButtonViewStyle}>
-              <CustomButton
-                title="Sign In"
-                handlePress={submit}
-                isLoading={isSubmitting}
-                otherStyles={{height: 60}}
-              />
-            </View>
+                <View style={styles.signInButtonViewStyle}>
+                  <CustomButton
+                    title="Sign In"
+                    handlePress={submit}
+                    isLoading={isSubmitting}
+                    otherStyles={{ height: 60 }}
+                  />
+                </View>
 
-            <View style={styles.signUpViewStyle}>
-              <Text style={{color:colors.white}}>Don't have an account?{' '}<Link href='/sign-up' style={{color:'orange'}}>Sign up here</Link></Text>
-            </View>
-          </View>
-        </ScrollView>
+                <View style={styles.signUpViewStyle}>
+                  <Text style={{ color: colors.white }}>
+                    Don't have an account?{" "}
+                    <Link href="/sign-up" style={{ color: "orange" }}>
+                      Sign up here
+                    </Link>
+                  </Text>
+                </View>
+              </View>
+            </ScrollView>
+          </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
       </SafeAreaView>
     </>
   );

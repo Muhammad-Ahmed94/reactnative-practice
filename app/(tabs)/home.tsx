@@ -16,17 +16,19 @@ import EmptyTrending from "@/components/EmptyTrending";
 import { getPostsDocuments, getTrendyPosts } from "@/lib/appwrite";
 import useAppWrite from "@/lib/useAppwrite";
 import VideoCard from "@/components/VideoCard";
+import { useGlobalContext } from "@/context/GlobalProvider";
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
-
+  const { user } = useGlobalContext();
+  
   const { data: posts, reloadRefetch } = useAppWrite(getPostsDocuments);
   const { data: trendyPosts } = useAppWrite(getTrendyPosts);
 
   //* Pull-down refresh function
   const onRefreshing = async () => {
     setRefreshing(true);
-    reloadRefetch();
+    await reloadRefetch();
     setRefreshing(false);
   };
 
@@ -34,14 +36,14 @@ const Home = () => {
     <SafeAreaView style={{ backgroundColor: colors.primary, flex: 1 }}>
       <FlatList
         data={posts}
-        keyExtractor={(item) => item}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => <VideoCard video={{title: item.title, thumbnail: item.thumbnail, video:item.video}} />}
         ListHeaderComponent={() => (
           <View style={styles.homeContainer}>
             <View style={styles.homeInnerContainer}>
               <View style={styles.homeTitleContainer}>
                 <Text style={[styles.textWhite, styles.homeTitle]}>
-                  Welcome Muneeb!
+                  Welcome {user?.name ?? "Guest"}
                 </Text>
                 <Image
                   source={images.logoSmall}

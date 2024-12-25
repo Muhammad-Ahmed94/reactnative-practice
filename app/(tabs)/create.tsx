@@ -13,17 +13,30 @@ import colors from '@/constants/colors';
 import { useGlobalContext } from '@/context/GlobalProvider';
 import { createVideo } from '@/lib/appwrite';
 
+interface FormState {
+  title: string;
+  video: { uri: string } | null;
+  thumbnail: { uri: string } | null;
+  prompt: string
+}
+
+interface User {
+  $id: string;
+  name: string;
+}
+
 const Create = () => {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<FormState>({
     title: "",
     video: null,
     thumbnail: null,
     prompt: "",
   });
+
   const [uploading, setIsUploading] = useState(false);
   const { user } = useGlobalContext();
 
-  const documentPicker = async (documentType) => {
+  const documentPicker = async (documentType: "image" | "video") => {
     const result = await DocumentPicker.getDocumentAsync({
       type:
         documentType === "image"
@@ -31,12 +44,14 @@ const Create = () => {
           : ["video/mp4", "video/gif"],
     });
 
-    if (!result.canceled) {
+    if (!result.canceled && result.assets?.[0]) {
+      const asset = result.assets[0];
+
       if (documentType === "image") {
-        setForm({ ...form, thumbnail: result.assets[0] });
+        setForm({ ...form, thumbnail: asset });
       }
       if (documentType === "video") {
-        setForm({ ...form, video: result.assets[0] });
+        setForm({ ...form, video: asset });
       }
     }
   };
@@ -212,8 +227,6 @@ const styles = StyleSheet.create({
     top: "50%",
     left: "50%",
     transform: [{ translateY: "-50%" }, { translateX: "-50%" }],
-    /*justifyContent: 'center',
-    alignItems: 'center'*/
   },
 
   videoStyles: {

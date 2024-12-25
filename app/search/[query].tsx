@@ -15,19 +15,19 @@ import VideoCard from "@/components/VideoCard";
 import { useLocalSearchParams } from "expo-router";
 
 const Search = () => {
-  const { query } = useLocalSearchParams();
+  const { query = "" } = useLocalSearchParams();
 
   const { data: posts, reloadRefetch } = useAppWrite(() => searchPosts(query));
 
   useEffect(() => {
-    reloadRefetch
+    reloadRefetch()
   }, [query]);
 
   return (
     <SafeAreaView style={{ backgroundColor: colors.primary, flex: 1 }}>
       <FlatList
         data={posts}
-        keyExtractor={(item) => item}
+        keyExtractor={(item) => item.id}//change here
         renderItem={({ item }) => (
           <VideoCard
             video={{
