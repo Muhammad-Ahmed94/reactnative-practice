@@ -1,28 +1,70 @@
-import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
-import colors from '@/constants/colors';
-import FormFeild from '@/components/FormFeild';
-import { ResizeMode, Video } from 'expo-av';
-import { icons } from '@/constants';
-import { FlipInEasyX } from 'react-native-reanimated';
-import CustomButton from '@/components/CustomButton';
+import {
+  Alert,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React, { useState } from "react";
+import colors from "@/constants/colors";
+import FormFeild from "@/components/FormFeild";
+import { ResizeMode, Video } from "expo-av";
+import { icons } from "@/constants";
+import CustomButton from "@/components/CustomButton";
+import * as DocumentPicker from "expo-document-picker";
+import { router } from "expo-router";
 
 const Create = () => {
-  const [ form, setForm ] = useState({
-    title: '',
+  const [form, setForm] = useState({
+    title: "",
     video: null,
     thumbnail: null,
-    prompt: ''
-  })
-  const [ uploading, setIsUploading ] =useState(false)
+    prompt: "",
+  });
+  const [uploading, setIsUploading] = useState(false);
 
-  const documentPicker = () => {
+  const documentPicker = async (documentType) => {
+    const result = await DocumentPicker.getDocumentAsync({
+      type:
+        documentType === "image"
+          ? ["image/png", "image/jpg", "image/jpeg"]
+          : ["video/mp4", "video/gif"],
+    });
 
-  }
+    if (!result.canceled) {
+      if (documentType === "image") {
+        setForm({ ...form, thumbnail: result.assets[0] });
+      }
+      if (documentType === "video") {
+        setForm({ ...form, video: result.assets[0] });
+      }
+    }
+  };
 
   const submitVideo = () => {
+    if (!form.prompt || !form.thumbnail || !form.title || !form.video) {
+      Alert.alert("Missing values", "Please fill in all the fields");
+    }
 
-  }
+    try {
+      Alert.alert("Success", "Post uploaded successfully")
+      router.push('/home')
+    } catch (error) {
+      Alert.alert("Error", "Could not upload the files to server");
+    } finally {
+      setForm({
+        title: "",
+        video: null,
+        thumbnail: null,
+        prompt: "",
+      });
+
+      setIsUploading(false);
+    }
+  };
 
   return (
     <SafeAreaView style={{ backgroundColor: colors.primary, height: "100%" }}>
@@ -47,21 +89,42 @@ const Create = () => {
         <View style={styles.uploadVideoContainer}>
           <Text style={styles.colorWhite}>Thumbnail Image</Text>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => documentPicker("image")}>
             {form.thumbnail ? (
               <Image
+                style={{width: '100%', height: 200}}
                 source={{ uri: form.thumbnail.uri }}
                 resizeMode="contain"
               />
             ) : (
-              <View style={[styles.uploadVideoContent, { height: 70, }]}>
-                <View style={[styles.uploadVideoIcon, styles.alignCenter, {flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%', gap: 5}]}>
+              <View style={[styles.uploadVideoContent, { height: 70 }]}>
+                <View
+                  style={[
+                    styles.uploadVideoIcon,
+                    styles.alignCenter,
+                    {
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      width: "100%",
+                      gap: 5,
+                    },
+                  ]}
+                >
                   <Image
                     source={icons.upload}
                     resizeMode="contain"
                     style={{ padding: 15, height: 10, width: 10 }}
                   />
-                  <Text style={{color: colors.secondary, fontWeight: 'bold', fontSize: 15}}>Video Thumbnail</Text>
+                  <Text
+                    style={{
+                      color: colors.secondary,
+                      fontWeight: "bold",
+                      fontSize: 15,
+                    }}
+                  >
+                    Video Thumbnail
+                  </Text>
                 </View>
               </View>
             )}
@@ -71,9 +134,10 @@ const Create = () => {
         <View style={styles.uploadVideoContainer}>
           <Text style={styles.colorWhite}>Upload your video here</Text>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => documentPicker("video")}>
             {form.video ? (
               <Video
+                style={styles.videoStyles}
                 source={{ uri: form.video.uri }}
                 resizeMode={ResizeMode.COVER}
                 useNativeControls
@@ -106,9 +170,9 @@ const Create = () => {
       </ScrollView>
     </SafeAreaView>
   );
-}
+};
 
-export default Create
+export default Create;
 
 const styles = StyleSheet.create({
   alignCenter: {
@@ -126,7 +190,7 @@ const styles = StyleSheet.create({
   },
 
   uploadVideoContent: {
-    backgroundColor: "#4A4A51",
+    backgroundColor: "#4A4A51", // Light shade
     borderRadius: 15,
     marginTop: 10,
     width: "100%",
@@ -146,5 +210,11 @@ const styles = StyleSheet.create({
     transform: [{ translateY: "-50%" }, { translateX: "-50%" }],
     /*justifyContent: 'center',
     alignItems: 'center'*/
+  },
+
+  videoStyles: {
+    height: 200,
+    width: "100%",
+    marginTop: 10,
   },
 });
