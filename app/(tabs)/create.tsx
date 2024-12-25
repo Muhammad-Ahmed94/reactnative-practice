@@ -1,21 +1,17 @@
+import { ResizeMode, Video } from 'expo-av';
+import * as DocumentPicker from 'expo-document-picker';
+import { router } from 'expo-router';
+import React, { useState } from 'react';
 import {
-  Alert,
-  Image,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import React, { useState } from "react";
-import colors from "@/constants/colors";
-import FormFeild from "@/components/FormFeild";
-import { ResizeMode, Video } from "expo-av";
-import { icons } from "@/constants";
-import CustomButton from "@/components/CustomButton";
-import * as DocumentPicker from "expo-document-picker";
-import { router } from "expo-router";
+    Alert, Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View
+} from 'react-native';
+
+import CustomButton from '@/components/CustomButton';
+import FormFeild from '@/components/FormFeild';
+import { icons } from '@/constants';
+import colors from '@/constants/colors';
+import { useGlobalContext } from '@/context/GlobalProvider';
+import { createVideo } from '@/lib/appwrite';
 
 const Create = () => {
   const [form, setForm] = useState({
@@ -25,6 +21,7 @@ const Create = () => {
     prompt: "",
   });
   const [uploading, setIsUploading] = useState(false);
+  const { user } = useGlobalContext();
 
   const documentPicker = async (documentType) => {
     const result = await DocumentPicker.getDocumentAsync({
@@ -44,15 +41,22 @@ const Create = () => {
     }
   };
 
-  const submitVideo = () => {
+  const submitVideo = async () => {
     if (!form.prompt || !form.thumbnail || !form.title || !form.video) {
-      Alert.alert("Missing values", "Please fill in all the fields");
+      return Alert.alert("Missing values", "Please fill in all the fields");
     }
 
+    setIsUploading(true)
     try {
-      Alert.alert("Success", "Post uploaded successfully")
-      router.push('/home')
+      await createVideo({
+        ...form,
+        userId: user.$id.toString(),
+      });
+
+      Alert.alert("Success", "Post uploaded successfully");
+      router.push("/home");
     } catch (error) {
+      console.log(error);
       Alert.alert("Error", "Could not upload the files to server");
     } finally {
       setForm({
@@ -92,7 +96,7 @@ const Create = () => {
           <TouchableOpacity onPress={() => documentPicker("image")}>
             {form.thumbnail ? (
               <Image
-                style={{width: '100%', height: 200}}
+                style={{ width: "100%", height: 200 }}
                 source={{ uri: form.thumbnail.uri }}
                 resizeMode="contain"
               />
